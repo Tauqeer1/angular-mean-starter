@@ -1,6 +1,5 @@
 import * as express from "express";
 import * as http from "http";
-import * as compression from "compression";
 import * as serveStatic from "serve-static";
 import * as path from "path";
 import * as mongoose from "mongoose";
@@ -28,9 +27,6 @@ class Server {
         // Configure application
         this.config();
 
-        // Setup compression (gzip)
-        this.compression();
-
         // Setup routes
         this.routes();
 
@@ -50,12 +46,6 @@ class Server {
 
         // root path is under ../../target
         this.root = path.join(path.resolve(__dirname, "../../target"));
-    }
-
-    private compression(): void {
-        this.app.use(compression({
-            threshold: 0
-        }));
     }
 
     private routes(): void {
