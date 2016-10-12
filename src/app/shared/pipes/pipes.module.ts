@@ -11,6 +11,9 @@ const PIPES: any[] = [
 @NgModule({
     declarations: [
         ...PIPES
+    ],
+    exports: [
+        ...PIPES
     ]
 })
 export class PipesModule {}
