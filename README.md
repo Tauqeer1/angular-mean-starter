@@ -154,6 +154,8 @@ gulp
 ## Configuration
 
 - `MONGODB_URI=mongodb://user:pass@hostname:port/database` MongoDB URI (you can leave empty if you use MongoDB on localhost)
+- `GOOGLE_ANALYTICS_TRACKING_ID` Google Analytics tracking ID
+- `SITE_TITLE` = Site title (default "Angular 2 MEAN starter")
 
 For local development, you can save the environment to `.env` -file on project root:
 
