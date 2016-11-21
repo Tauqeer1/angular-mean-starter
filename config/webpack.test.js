@@ -4,56 +4,85 @@ const path = require('path');
 const webpack = require('webpack');
 
 // plugins
+const ContextReplacementPlugin = webpack.ContextReplacementPlugin;
 const DefinePlugin = webpack.DefinePlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
+const LoaderOptionsPlugin = webpack.LoaderOptionsPlugin;
+
+let data = {
+    title: process.env.SITE_TITLE ? process.env.SITE_TITLE : "OmaDextra"
+};
 
 module.exports = {
     devtool: 'inline-source-map',
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.ts$/,
-                exclude: [path.resolve(__dirname, '../node_modules')],
-                loader: 'ts'
+                loader: 'ts-loader',
+                exclude: [/\.e2e\.ts$/]
             },
             {
                 test: /\.pug$/,
-                loader: 'pug-html-loader'
+                loader: 'pug-html-loader',
+                query: {
+                    data: data
+                }
             },
             {
                 test: /\.styl$/,
-                include: [path.resolve(__dirname, '../src/client')],
-                loader: 'raw!postcss-loader!stylus-loader'
+                include: [path.resolve(__dirname, '../src/app')],
+                loader: 'raw-loader!postcss-loader!stylus-loader'
             },
             {
                 test: /\.styl$/,
-                exclude: [path.resolve(__dirname, '../src/client')],
+                exclude: [path.resolve(__dirname, '../src/app')],
                 include: [path.resolve(__dirname, '../src/styles')],
-                loader: ExtractTextPlugin.extract('raw!postcss-loader!stylus-loader')
+                loader: ExtractTextPlugin.extract('raw-loader!postcss-loader!stylus-loader')
+            },
+            {
+                test: /\.css$/,
+                loader: ExtractTextPlugin.extract('raw-loader!postcss-loader')
+            },
+            {
+                test: /\.json$/,
+                loader: 'json-loader'
             }
         ]
     },
 
-    postcss: [
-        autoprefixer({ browsers: ['last 3 versions'] })
-    ],
-
-    sassLoader: {
-        outputStyle: 'compressed',
-        precision: 10,
-        sourceComments: false
-    },
+    postcss: common.postcss,
 
     plugins: [
+        new LoaderOptionsPlugin({
+            debug: false,
+            options: {
+                postcss: [
+                    autoprefixer({ browsers: ['last 3 versions', 'Firefox ESR'] })
+                ],
+                resolve: {}
+            },
+        }),
         new DefinePlugin({
-            'process.env.NODE_ENV': JSON.stringify('testing')
-        })
+            'process.env': {
+                NODE_ENV: JSON.stringify('testing')
+            }
+        }),
+        new ContextReplacementPlugin(
+            /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
+            __dirname
+        )
     ],
 
-    resolve: {
-        extensions: ['', '.ts', '.js', '.json'],
-        modulesDirectories: ['node_modules'],
-        root: path.resolve('../src')
+    resolve: common.resolve,
+
+    node: {
+        global: true,
+        process: false,
+        crypto: 'empty',
+        module: false,
+        clearImmediate: false,
+        setImmediate: false
     }
 };

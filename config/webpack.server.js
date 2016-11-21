@@ -11,15 +11,15 @@ module.exports = {
     },
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.ts$/,
                 exclude: [/\.spec\.ts$/, path.resolve(__dirname, '../node_modules')],
-                loader: 'ts'
+                loader: 'ts-loader'
             },
             {
                 test: /\.json$/,
-                loader: 'json'
+                loader: 'json-loader'
             }
         ]
     },

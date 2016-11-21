@@ -6,9 +6,9 @@ const webpack = require('webpack');
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const ContextReplacementPlugin = webpack.ContextReplacementPlugin;
 const CopyWebpackPlugin = require('copy-webpack-plugin');
-const DedupePlugin = webpack.optimize.DedupePlugin;
 const ExtractTextPlugin = require('extract-text-webpack-plugin');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
+const LoaderOptionsPlugin = webpack.LoaderOptionsPlugin;
 const OccurrenceOrderPlugin = webpack.optimize.OccurrenceOrderPlugin;
 
 let data = {
@@ -23,10 +23,9 @@ if (process.env.GOOGLE_ANALYTICS_TRACKING_ID) {
 module.exports = {
     target: 'web',
     cache: true,
-    debug: false,
 
     module: {
-        loaders: [
+        rules: [
             {
                 test: /\.ts$/,
                 loaders: [
@@ -44,13 +43,13 @@ module.exports = {
             {
                 test: /\.styl$/,
                 include: [path.resolve(__dirname, '../src/app')],
-                loader: 'raw!postcss-loader!stylus-loader'
+                loader: 'raw-loader!postcss-loader!stylus-loader'
             },
             {
                 test: /\.styl$/,
                 exclude: [path.resolve(__dirname, '../src/app')],
                 include: [path.resolve(__dirname, '../src/styles')],
-                loader: ExtractTextPlugin.extract('raw!postcss-loader!stylus-loader')
+                loader: ExtractTextPlugin.extract('raw-loader!postcss-loader!stylus-loader')
             }
         ]
     },
@@ -73,11 +72,16 @@ module.exports = {
         'assets/js/polyfills.js': './src/polyfills'
     },
 
-    postcss: [
-        autoprefixer({ browsers: ['last 3 versions', 'Firefox ESR'] })
-    ],
-
     plugins: [
+        new LoaderOptionsPlugin({
+            debug: false,
+            options: {
+                postcss: [
+                    autoprefixer({ browsers: ['last 3 versions', 'Firefox ESR'] })
+                ],
+                resolve: {}
+            },
+        }),
         new ContextReplacementPlugin(
             /angular(\\|\/)core(\\|\/)(esm(\\|\/)src|src)(\\|\/)linker/,
             __dirname
@@ -111,9 +115,8 @@ module.exports = {
     ],
 
     resolve: {
-        extensions: ['', '.ts', '.js', '.json'],
-        modulesDirectories: ['node_modules'],
-        root: path.resolve('../src')
+        extensions: ['.ts', '.js', '.json'],
+        modules: [path.resolve('../src'), 'node_modules']
     },
 
     output: {
@@ -124,6 +127,7 @@ module.exports = {
     },
 
     node: {
+        global: true,
         net: false,
         fs: false,
         crypto: 'empty',
