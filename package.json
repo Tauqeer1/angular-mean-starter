@@ -1,12 +1,12 @@
 {
   "name": "angular2-mean-starter",
-  "version": "1.0.4",
+  "version": "1.0.5",
   "description": "Angular 2 MEAN starter - MongoDB + ExpressJS + Angular 2 + NodeJS",
   "homepage": "https://github.com/jussikinnula/angular2-mean-starter",
   "repository": "https://github.com/jussikinnula/angular2-mean-starter",
   "author": {
     "name": "Jussi Kinnula",
-    "email": "jussi.kinnula@frantic.com"
+    "email": "jussi.kinnula@gmail.com"
   },
   "license": "MIT",
   "engines": {
