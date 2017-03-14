@@ -89,11 +89,11 @@ class Server {
 
         //start listening on port
         this.server.on("listening", () => {
-            console.log("==> Listening on port %s. Open up http://localhost:%s/ in your browser.", this.port, this.port);            
+            console.log("==> Listening on port %s. Open up http://localhost:%s/ in your browser.", this.port, this.port);
         });
     }
 }
 
 // Bootstrap the server
 let server = Server.bootstrap();
-export = server.app;
+module.exports = server.app;

@@ -11,15 +11,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = webpack.LoaderOptionsPlugin;
 const OccurrenceOrderPlugin = webpack.optimize.OccurrenceOrderPlugin;
 
-let data = {
-    title: process.env.SITE_TITLE ? process.env.SITE_TITLE : "Angular 2 MEAN starter"
-};
-if (process.env.GOOGLE_ANALYTICS_TRACKING_ID) {
-    data.googleAnalytics = {
-        trackingId: process.env.GOOGLE_ANALYTICS_TRACKING_ID
-    }
-}
-
 module.exports = {
     target: 'web',
     cache: true,
@@ -35,15 +26,12 @@ module.exports = {
             },
             {
                 test: /\.pug$/,
-                loader: 'pug-html-loader',
-                query: {
-                    data: data
-                }
+                loaders: ['raw-loader', 'pug-html-loader']
             },
             {
                 test: /\.styl$/,
                 include: [path.resolve(__dirname, '../src/app')],
-                loader: 'raw-loader!postcss-loader!stylus-loader'
+                loaders: ['raw-loader', 'postcss-loader', 'stylus-loader']
             },
             {
                 test: /\.styl$/,
