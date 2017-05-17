@@ -1,15 +1,15 @@
-# angular2-mean-starter
+# angular-mean-starter
 
-Angular 2 MEAN starter - MongoDB + ExpressJS + Angular 2 + NodeJS
+Angular MEAN starter - MongoDB + ExpressJS + Angular + NodeJS
 
 ## Highlights
 
-- Angular 2.0.0 final support (with `NgModule` -type of modules)
-- Webpack 2 bundling, including lazy routes
+- Angular 4
+- Webpack 2 + multiple loaders
 - REST API (done with ExpressJS)
 - Templates (and single page app loading page, e.g. index.html) are made with [Jade](http://jade-lang.com/) (actually it's renamed to "Pug" nowadays)
 - Styles are made with [Stylus](http://stylus-lang.com/)
-- Easy-to-use date pipe replacement (using MomentJS instead of the default Angular 2 date pipe)
+- Easy-to-use date pipe replacement (using MomentJS instead of the default Angular date pipe)
 - Webpack livereloading (on local development, not HMR but almost as good)
 - Full stack compilation on Heroku build process (this is really must to have, should also work on other systems)
 
@@ -17,8 +17,8 @@ Angular 2 MEAN starter - MongoDB + ExpressJS + Angular 2 + NodeJS
 
 The projects needs that you have the following things installed:
 
-- [NodeJS](https://nodejs.org/) (version 6 or greater, tested with 6.3.1)
-- [MongoDB](https://www.mongodb.com/) (tested with version 3.2.6)
+- [NodeJS](https://nodejs.org/) (version 7 or greater, tested with v7.10.0)
+- [MongoDB](https://www.mongodb.com/) (tested with version 3.4.2)
 - [Heroku Toolbelt](https://toolbelt.heroku.com/) (latest)
 
 All of the prequisities are available on Linux, Windows and Mac OS X systems with their own installers (just go to links above and download package).
@@ -58,8 +58,8 @@ Note! Follow the instructions after installing NVM, so that you'll get the shell
 Then you can just install and use specific NodeJS version like:
 
 ```
-nvm install v6.3.1
-nvm use v6.3.1
+nvm install v7
+nvm use v7
 ```
 
 #### MongoDB
@@ -75,15 +75,6 @@ Note! You can also unload with `launchctl`, as well as add the load/unload comma
 ### Installing prequisities on Windows
 
 You should install installer packages of [NodeJS](https://nodejs.org/en/download/current/), [MongoDB](https://www.mongodb.com/download-center) and [Heroku Toolbelt](https://toolbelt.heroku.com/windows), either 32bit or 64bit depending on your system.
-
-#### Install some Node modules globally
-
-Windows doesn't add everything to global path, so you might want to install some packages globally (`npm install -g <package>`):
-
-```
-npm install -g gulpjs/gulp-cli#4.0
-npm install -g webpack
-```
 
 #### MongoDB
 
@@ -111,8 +102,6 @@ On Windows installations, it will ease the task if you use PowerShell and add al
 npm install
 ```
 
-Note! Type definitions were earlier installed with `typings`, however, due switching to TypeScript 2.0 the type definitions are managed with `npm` and more specifically `@types/***` name space.
-
 ## Local development
 
 ### Build
@@ -127,26 +116,6 @@ npm run build
 npm start
 ```
 
-### Gulp (optional)
-
-The gulp tasks for this project require gulp v4-alpha. If you don't wish to globally install the v4 gulp-cli, you can run the gulp tasks using the locally installed gulp under ./node_modules/.bin — for example:
-
-```
-./node_modules/.bin/gulp
-```
-
-If you wish, you can also install Gulp globally:
-
-```
-npm install -g gulpjs/gulp-cli#4.0
-```
-
-After that you can just run:
-
-```
-gulp
-```
-
 ### Open local app in browser
 
 [http://localhost:5000/](http://localhost:5000/)
@@ -155,7 +124,7 @@ gulp
 
 - `MONGODB_URI=mongodb://user:pass@hostname:port/database` MongoDB URI (you can leave empty if you use MongoDB on localhost)
 - `GOOGLE_ANALYTICS_TRACKING_ID` Google Analytics tracking ID
-- `SITE_TITLE` = Site title (default "Angular 2 MEAN starter")
+- `SITE_TITLE` = Site title (default "Angular MEAN starter")
 
 For local development, you can save the environment to `.env` -file on project root:
 
@@ -163,7 +132,21 @@ For local development, you can save the environment to `.env` -file on project r
 MONGODB_URI=mongodb://user:pass@hostname:port/database
 ```
 
+### Local Development
+
+In local development you might want to run WebPack continuously with nodemon (e.g. `npm run build:watch` and `npm run server:dev`). You can do that just by giving command:
+
+```
+npm run dev
+```
+
 ## Heroku
+
+### Install Heroku cli
+
+```
+brew install heroku-cli
+```
 
 ### Create a Heroku app first (if you don't have already one)
 
