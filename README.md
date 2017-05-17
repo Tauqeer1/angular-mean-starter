@@ -142,7 +142,7 @@ npm run dev
 
 ## Heroku
 
-### Install Heroku cli
+### Install Heroku command line interface
 
 ```
 brew install heroku-cli
