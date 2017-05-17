@@ -45,7 +45,7 @@ brew install node
 
 #### Node Version Manager (recommended)
 
-If you wish to run multiple NodeJS versions (to avoid problems with old NodeJS modules, you might want to use 4.2 as default, and NodeJS 6 on newer projects, you should install [NVM](https://github.com/creationix/nvm) (Node Version Manager) for managing multiple NodeJS versions.
+If you wish to run multiple NodeJS versions, you should install [NVM](https://github.com/creationix/nvm) (Node Version Manager) for managing multiple NodeJS versions.
 
 NVM can be installed by the following command:
 
