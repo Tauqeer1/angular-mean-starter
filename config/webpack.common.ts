@@ -64,9 +64,9 @@ export const commonConfig = {
         use: [
           'exports-loader?module.exports.toString()',
           'style-loader',
-          'css-loader',
-          'postcss-loader',
-          'resolve-url-loader',
+          { loader: 'css-loader', options: { sourceMap: true } },
+          { loader: 'postcss-loader', options: { sourceMap: true } },
+          { loader: 'resolve-url-loader', options: { sourceMap: true } },
           { loader: 'stylus-loader', options: { sourceMap: true } }
         ]
       },
