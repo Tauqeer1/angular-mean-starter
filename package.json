@@ -52,7 +52,6 @@
     "autoprefixer": "^7.1.1",
     "body-parser": "^1.17.2",
     "compression": "^1.6.2",
-    "copy-webpack-plugin": "^4.0.1",
     "core-js": "^2.4.1",
     "css-loader": "^0.28.2",
     "del": "^2.2.2",
