@@ -5,7 +5,6 @@ const webpackMerge = require('webpack-merge');
 
 const CommonsChunkPlugin = webpack.optimize.CommonsChunkPlugin;
 const ContextReplacementPlugin = webpack.ContextReplacementPlugin;
-const CopyWebpackPlugin = require('copy-webpack-plugin');
 const DefinePlugin = webpack.DefinePlugin;
 const HtmlWebpackPlugin = require('html-webpack-plugin');
 const LoaderOptionsPlugin = webpack.LoaderOptionsPlugin;
@@ -95,13 +94,6 @@ export const clientPlugins = [
       'assets/js/polyfills.js'
     ]
   }),
-
-  new CopyWebpackPlugin([
-    {
-      from: 'src/images',
-      to: 'assets/images'
-    }
-  ]),
 
   new HtmlWebpackPlugin({
     chunksSortMode: 'auto',
