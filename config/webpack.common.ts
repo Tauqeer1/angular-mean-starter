@@ -71,11 +71,11 @@ export const commonConfig = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
-        loader: 'file-loader?name=assets/images/[name].[ext]?[hash]'
+        loader: 'url-loader?limit=8192&name=assets/images/[name].[ext]?[hash]'
       },
       {
         test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'file-loader?name=assets/fonts/[name].[ext]?[hash]'
+        loader: 'url-loader?limit=8192&name=assets/fonts/[name].[ext]?[hash]'
       },
       {
         test: /\.json$/,
