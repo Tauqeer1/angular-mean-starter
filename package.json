@@ -11,7 +11,7 @@
   "license": "MIT",
   "engines": {
     "node": "^8.0.0",
-    "npm": "^4.0.0"
+    "npm": "^5.0.0"
   },
   "scripts": {
     "prebuild:prod": "npm run clean",
@@ -41,11 +41,10 @@
     "@types/body-parser": "^1.16.3",
     "@types/express": "^4.0.35",
     "@types/hammerjs": "^2.0.34",
-    "@types/jasmine": "^2.5.47",
     "@types/mime": "^0.0.29",
     "@types/mongodb": "^2.2.2",
     "@types/mongoose": "^4.7.13",
-    "@types/node": "^7.0.22",
+    "@types/node": "^7.0.23",
     "@types/serve-static": "^1.7.31",
     "angular2-router-loader": "^0.3.5",
     "angular2-template-loader": "^0.6.2",
@@ -82,7 +81,7 @@
     "ts-helpers": "^1.1.2",
     "ts-loader": "^2.1.0",
     "ts-node": "~3.0.4",
-    "typescript": "^2.3.3",
+    "typescript": "^2.3.4",
     "url-loader": "^0.5.8",
     "webpack": "^2.6.1",
     "webpack-bundle-analyzer": "^2.8.2",
@@ -90,7 +89,7 @@
     "zone.js": "^0.8.11"
   },
   "devDependencies": {
-    "@types/jasmine": "^2.5.47",
+    "@types/jasmine": "^2.5.49",
     "@types/webpack": "^2.2.15",
     "concurrently": "^3.4.0",
     "jasmine-core": "^2.6.2",
