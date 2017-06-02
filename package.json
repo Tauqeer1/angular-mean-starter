@@ -10,8 +10,8 @@
   },
   "license": "MIT",
   "engines": {
-    "node": ">=7",
-    "npm": ">=4"
+    "node": "^8.0.0",
+    "npm": "^4.0.0"
   },
   "scripts": {
     "prebuild:prod": "npm run clean",
