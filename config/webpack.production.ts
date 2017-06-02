@@ -60,7 +60,7 @@ export const clientPlugins = [
     statsFilename: 'iconstats.json',
     inject: true,
     background: '#ffffff',
-    title: 'Angular Finland'
+    title: 'Angular MEAN Starter'
   }),
 
   new BundleAnalyzerPlugin({
