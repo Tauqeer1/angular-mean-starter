@@ -100,8 +100,8 @@ export const clientConfig = {
   target: 'web',
 
   entry: {
-    'js/main': './src/main',
-    'js/vendor': './src/vendor'
+    main: './src/main',
+    vendor: './src/vendor'
   },
 
   output: {
