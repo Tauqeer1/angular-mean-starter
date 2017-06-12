@@ -65,11 +65,11 @@ export const commonConfig = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
-        loader: 'url-loader?limit=8192&name=images/[name].[ext]?[hash]'
+        loader: 'url-loader?limit=8192&name=assets/images/[name].[ext]?[hash]'
       },
       {
         test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=8192&name=fonts/[name].[ext]?[hash]'
+        loader: 'url-loader?limit=8192&name=assets/fonts/[name].[ext]?[hash]'
       },
       {
         test: /\.json$/,
@@ -82,14 +82,14 @@ export const commonConfig = {
 // Client
 export const clientPlugins = [
   new CommonsChunkPlugin({
-    name: 'vendor',
-    filename: 'js/[name].[hash].js',
+    name: ['vendor', 'polyfills'],
+    filename: 'assets/js/[name].[hash].js',
     minChunks: Infinity
   }),
 
   new HtmlWebpackPlugin({
     chunksSortMode: 'auto',
-    filename: '../index.html',
+    filename: 'index.html',
     hash: true,
     inject: 'body',
     template: './src/index.pug'
@@ -101,13 +101,14 @@ export const clientConfig = {
 
   entry: {
     main: './src/main',
-    vendor: './src/vendor'
+    vendor: './src/vendor',
+    polyfills: './src/polyfills'
   },
 
   output: {
-    filename: 'js/[name].[hash].js',
-    path: root('./target/assets'),
-    publicPath: '/assets/'
+    filename: 'assets/js/[name].[hash].js',
+    path: root('./target'),
+    publicPath: '/'
   },
 
   node: {
@@ -130,9 +131,9 @@ export const serverConfig = {
   entry: './src/server',
 
   output: {
-    filename: '../server.js',
-    path: root('./target/assets'),
-    publicPath: '/assets/',
+    filename: 'server.js',
+    path: root('./target'),
+    publicPath: '/',
     libraryTarget: 'commonjs2'
   },
 
