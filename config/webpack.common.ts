@@ -40,12 +40,6 @@ export const commonConfig = {
 
   context: root('./'),
 
-  output: {
-    filename: '[name]',
-    path: root('target'),
-    publicPath: ''
-  },
-
   module: {
     exprContextCritical: false,
     rules: [
@@ -88,16 +82,14 @@ export const commonConfig = {
 // Client
 export const clientPlugins = [
   new CommonsChunkPlugin({
-    name: [
-      'assets/js/main.js',
-      'assets/js/vendor.js',
-      'assets/js/polyfills.js'
-    ]
+    name: 'vendor',
+    filename: 'assets/js/[name].[hash].js',
+    minChunks: Infinity
   }),
 
   new HtmlWebpackPlugin({
     chunksSortMode: 'auto',
-    filename: 'index.html',
+    filename: '../index.html',
     hash: true,
     inject: 'body',
     template: './src/index.pug'
@@ -108,14 +100,14 @@ export const clientConfig = {
   target: 'web',
 
   entry: {
-    'assets/js/main.js': './src/main',
-    'assets/js/vendor.js': './src/vendor',
-    'assets/js/polyfills.js': './src/polyfills'
+    'js/main': './src/main',
+    'js/vendor': './src/vendor'
   },
 
   output: {
-    filename: '[name]',
-    chunkFilename: 'assets/js/[chunkhash].js'
+    filename: 'js/[name].[hash].js',
+    path: root('./target/assets'),
+    publicPath: '/assets/'
   },
 
   node: {
@@ -135,27 +127,18 @@ export const serverPlugins = [];
 export const serverConfig = {
   target: 'node',
 
-  entry: {
-    'server/index.js': './src/server'
-  },
+  entry: './src/server',
 
   output: {
-    chunkFilename: 'chunk-[name].js',
+    filename: '../server.js',
+    path: root('./target/assets'),
+    publicPath: '/assets/',
     libraryTarget: 'commonjs2'
   },
 
-  module: {
-    rules: [
-      {
-        test: /@angular(\\|\/)material/,
-        loader: 'imports-loader?window=>global'
-      }
-    ]
-  },
-
-  externals: includeClientPackages(
-    /@angularclass|@angular|angular2-|ng2-|ng-|@ng-|angular-|@ngrx|ngrx-|@angular2|ionic|@ionic|-angular2|-ng2|-ng/
-  ),
+ externals: includeClientPackages(
+   /@angularclass|@angular|angular2-|ng2-|ng-|@ng-|angular-|@ngrx|ngrx-|@angular2|ionic|@ionic|-angular2|-ng2|-ng/
+ ),
 
   node: {
     global: true,

@@ -24,8 +24,8 @@
     "predev": "npm run clean && npm run build:dev",
     "dev": "concurrently \"npm run server:dev\" \"npm run build:watch\"",
     "postinstall": "npm run build",
-    "server:prod": "node target/server/index.js",
-    "server:dev": "nodemon target/server/index.js",
+    "server:prod": "node target/server.js",
+    "server:dev": "nodemon target/server.js",
     "server": "npm run server:prod",
     "start": "npm run server"
   },
