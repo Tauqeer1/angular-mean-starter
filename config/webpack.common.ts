@@ -65,11 +65,11 @@ export const commonConfig = {
       },
       {
         test: /\.(png|jpg|jpeg|gif|svg)$/,
-        loader: 'url-loader?limit=8192&name=assets/images/[name].[ext]?[hash]'
+        loader: 'url-loader?limit=8192&name=images/[name].[ext]?[hash]'
       },
       {
         test: /\.(woff|woff2|ttf|eot)(\?v=\d+\.\d+\.\d+)?$/,
-        loader: 'url-loader?limit=8192&name=assets/fonts/[name].[ext]?[hash]'
+        loader: 'url-loader?limit=8192&name=fonts/[name].[ext]?[hash]'
       },
       {
         test: /\.json$/,
@@ -83,7 +83,7 @@ export const commonConfig = {
 export const clientPlugins = [
   new CommonsChunkPlugin({
     name: 'vendor',
-    filename: 'assets/js/[name].[hash].js',
+    filename: 'js/[name].[hash].js',
     minChunks: Infinity
   }),
 
