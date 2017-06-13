@@ -16,80 +16,80 @@ export class TodoService {
 
   listTodos(): void {
     this.http.get(this.url)
-      .map( (response: Response) => response.json() )
+      .map(res => res.json().todos)
+      .map(todos => todos as ITodo[])
       .subscribe(
-        (response: any) => {
-          this.list = response.todos;
+        todos => {
+          this.list = todos;
           this.todos.next(this.list);
         },
-        (error: any) => console.log(error)
+        error => console.log(error)
       );
   }
 
-  createTodo(todo: ITodo): void {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this.http.post(this.url, todo, options)
-      .map( (response: Response) => response.json() )
-      .subscribe(
-        (todo: ITodo) => this.updateOrCreateTodo(todo),
-        (error: any) => console.log(error)
-
-      );
-  }
-
-  findTodo(id: string): Observable<any> {
-    return Observable.create( observer => {
-      this.todos.subscribe( todos => {
-        const index = this.findIndex(id);
-        observer.next(todos[index]);
-      });
-    });
-  }
-
-  updateTodo(todo: ITodo): void {
-    let headers = new Headers({ 'Content-Type': 'application/json' });
-    let options = new RequestOptions({ headers: headers });
-    this.http.put(this.url + '/' + todo['_id'], todo, options)
-      .map( (response: Response) => response.json() )
-      .subscribe(
-        (todo: ITodo) => this.updateOrCreateTodo(todo),
-        (error: any) => console.log(error)
-      );
-  }
-
-
-  removeTodo(todo: ITodo): void {
-    this.http.delete(this.url + '/' + todo['_id'])
-      .map( (response: Response) => response.json() )
-      .subscribe(
-        (success: any) => {
-          const index = this.findIndex(todo['_id']);
-          if (index !== -1) {
-            this.list.splice(index, 1);
-            this.todos.next(this.list);
-          }
+  findTodo(id: number): Observable<ITodo> {
+    return this.http.get(this.url + '/' + id)
+      .map(res => res.json())
+      .map(todo => todo as ITodo)
+      .do(
+        todo => {
+          this.list = [
+            ...this.list.filter(todo => todo['_id'] != id),
+            todo
+          ];
+          this.todos.next(this.list);
         },
-        (error: any) => console.log(error)
-
+        error => console.error(error)
       );
   }
 
-  private updateOrCreateTodo(todo: ITodo) {
-    const index: number = this.findIndex(todo['_id']);
-    if (index === -1) {
-      // Create
-      this.list.push(todo);
-    } else {
-      // Update
-      this.list[index] = todo
-    }
-    this.todos.next(this.list);
+  createTodo(createdTodo: ITodo): Observable<ITodo> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.post(this.url, createdTodo, options)
+      .map(res => res.json())
+      .map(todo => todo as ITodo)
+      .do(
+        todo => {
+          this.list = [
+            ...this.list,
+            todo
+          ];
+          this.todos.next(this.list);
+        },
+        error => console.error(error)
+      );
   }
 
-  private findIndex(id: string): number {
-    return this.list.findIndex((todo: ITodo) => {
-      return todo['_id'] === id;
-    });
+  updateTodo(updatedTodo: ITodo): Observable<ITodo> {
+    let headers = new Headers({ 'Content-Type': 'application/json' });
+    let options = new RequestOptions({ headers: headers });
+    return this.http.put(this.url + '/' + updatedTodo['_id'], updatedTodo, options)
+      .map(res => res.json())
+      .map(todo => todo as ITodo)
+      .do(
+        todo => {
+          this.list = [
+            ...this.list.filter(todo => todo['_id'] != updatedTodo['_id']),
+            todo
+          ];
+          this.todos.next(this.list);
+        },
+        error => console.error(error)
+      );
+  }
+
+  removeTodo(todo: ITodo): Observable<any> {
+    return this.http.delete(this.url + '/' + todo['_id'])
+      .map(res => res.json())
+      .do(
+        () => {
+          this.list = [
+            ...this.list.filter(item => item['_id'] != todo['_id'])
+          ];
+          this.todos.next(this.list);
+        },
+        error => console.error(error)
+      );
   }
 }
