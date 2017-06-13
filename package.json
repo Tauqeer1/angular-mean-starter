@@ -25,7 +25,7 @@
     "dev": "concurrently \"npm run server:dev\" \"npm run build:watch\"",
     "postinstall": "npm run build",
     "server:prod": "node target/server.js",
-    "server:dev": "nodemon target/server.js",
+    "server:dev": "nodemon target/server.js --ignore target/assets",
     "server": "npm run server:prod",
     "start": "npm run server"
   },
