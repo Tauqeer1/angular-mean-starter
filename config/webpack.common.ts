@@ -82,7 +82,7 @@ export const commonConfig = {
 // Client
 export const clientPlugins = [
   new CommonsChunkPlugin({
-    name: ['vendor', 'polyfills'],
+    names: ['vendor', 'polyfills'],
     filename: 'assets/js/[name].[hash].js',
     minChunks: Infinity
   }),
