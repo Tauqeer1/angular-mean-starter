@@ -59,7 +59,7 @@ export class Backend {
   private databases(): void {
     // MongoDB
     const MONGODB_URI = process.env.MONGODB_URI || 'mongodb://localhost/angular-mean-starter';
-    this.mongo = mongoose.connect(MONGODB_URI);
+    this.mongo = mongoose.connect(MONGODB_URI, { useMongoClient: true });
     (<any>mongoose).Promise = global.Promise;
   }
 }
